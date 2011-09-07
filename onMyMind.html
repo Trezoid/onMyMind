@@ -1,0 +1,24 @@
+<html>
+<head>
+<script src = "basis.js"></script>
+<link rel="stylesheet" type="text/css" href = "../base.css"></link>
+</head>
+<body>
+    
+    <div class= "footer" >
+        <textarea id="thoughtBox" placeholder="What are you thinking?" maxlength = "140"></textarea>
+        <a id = "submit" href = "#"><span class = "sendButton">send</span></a>
+        <div id="options"><span class="upArrow">^</span>
+            <div id="menuBox">
+                <a href ="about.htm"><div id="About" class="extraOptions">About</div></a>
+                <a href ="today.htm"><div id="today" class="extraOptions">Todays top thoughts</div></a>
+                <a href ="allTime.htm"><div id="allTime" class="extraOptions">All time top thoughts</div></a>
+                <a href ="random.htm"><div id="random" class="extraOptions">Random thought</div></a>
+                </div>
+        </div>
+    </div>
+    
+    <script>
+        populateScreen();
+    </script>
+</body>
