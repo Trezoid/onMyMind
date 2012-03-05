@@ -9,10 +9,8 @@ function populateScreen()
 function callBack(resText, caller)
 {
     resText = resText.split("\n")[0];
-    var sendText = caller+'("'+resText+'");';
-    eval(sendText);
+    caller(resText);
 }
-
 
 function fillScreen(resText)
 {
@@ -76,10 +74,6 @@ function voteOptions(event)
             destroyOptions();
        }
     
-    
-
-    
-    
     var id = this.getAttribute("id");
      var options = '<a href="#" id ="'+ id + 'Up">up</a> <a href="#" id ="'+ id + 'Down">down</a>';
     var grabThought = document.getElementsByTagName("body")[0];
@@ -107,13 +101,13 @@ function voteOptions(event)
 function voteUp()
 {
     var id = this.parentNode.className.split("t")[1];
-    servRequest("voteUpThought?"+id, "reload");
+    servRequest("voteUpThought?"+id, function() {window.location.reload;});
 }
 
 function voteDown()
 {
     var id = this.parentNode.className.split("t")[1];
-    servRequest("voteDownThought?"+id, "reload");
+    servRequest("voteDownThought?"+id, function {window.location.reload;});
 }
 
 function destroyOptions()
@@ -125,7 +119,7 @@ function destroyOptions()
 
 function getHighestID()
 {
-    var highestIDReq = servRequest("highestID", "submit");
+    var highestIDReq = servRequest("highestID", function(highestID){ submit(highestID);});
 }
 
 function submit(highestID)
@@ -133,17 +127,10 @@ function submit(highestID)
     var newID = (parseInt(highestID) + 1)
     var textToSend = document.getElementById("thoughtBox").value;
     textToSend = textToSend.replace("(", "%40");
-     textToSend = textToSend.replace(")", "%41");
+    textToSend = textToSend.replace(")", "%41");
     textToSend = textToSend.replace("'", "%50");
     document.getElementById("thoughtBox").value = "";
-    servRequest("addThought?"+(newID)+"?"+textToSend, "reload");
-    
-
-}
-
-function reload()
-{
-    window.location.reload();
+    servRequest("addThought?"+(newID)+"?"+textToSend, function() {window.location.reload();});
 }
 
 function servRequest(toPHP, caller)
@@ -152,7 +139,6 @@ function servRequest(toPHP, caller)
    	req.open('GET', 'dbConnect.php?'+toPHP, true);
   	req.onreadystatechange = function (aEvt) {
         var reqLocation;
-        
         if (req.readyState == 4) {
             if(req.status == 200)
             {

@@ -2,7 +2,7 @@
 $args = "".$_SERVER['REQUEST_URI'];
 $splitArgs = explode("?", $args);
 $wantReq = $splitArgs[1];
-    $extra = $splitArgs[2];
+$extra = $splitArgs[2];
     $more = $splitArgs[3];
 
 
